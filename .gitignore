@@ -1,0 +1,4 @@
+node_modules
+zokrates/code/square/generated
+build
+package-lock.json

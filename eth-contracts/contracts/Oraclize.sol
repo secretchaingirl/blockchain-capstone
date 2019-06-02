@@ -24,7 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 */
-pragma solidity >= 0.5.0; // Incompatible compiler version - please select a compiler within the stated pragma range, or use a different version of the oraclizeAPI!
+pragma solidity ^0.5.0;
 
 // Dummy contract only used to emit to end-user they are using wrong solc
 contract solcChecker {
@@ -364,11 +364,11 @@ contract usingOraclize {
         return false;
     }
 
-    function __callback(bytes32 _myid, string memory _result) public {
+    function __callback(bytes32 _myid, string memory _result) pure public {
         __callback(_myid, _result, new bytes(0));
     }
 
-    function __callback(bytes32 _myid, string memory _result, bytes memory _proof) public {
+    function __callback(bytes32 _myid, string memory _result, bytes memory _proof) pure public {
       return;
       _myid; _result; _proof; // Silence compiler warnings
     }

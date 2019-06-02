@@ -1,59 +1,84 @@
-pragma solidity >=0.4.21 <0.6.0;
+pragma solidity ^0.5.0;
 
-// TODO define a contract call to the zokrates generated solidity contract <Verifier> or <renamedVerifier>
+import 'openzeppelin-solidity/contracts/math/SafeMath.sol';
+import "./ERC721Mintable.sol";
 
+contract ZokratesVerifier {
+    function verifyTx(
+            uint[2] memory a,
+            uint[2][2] memory b,
+            uint[2] memory c,
+            uint[2] memory input
+        ) public returns (bool r);
+}
 
+contract ERC721MintableComplete is ERC721Mintable {
 
-// TODO define another contract named SolnSquareVerifier that inherits from your ERC721Mintable class
+    using SafeMath for uint256;
 
+    ZokratesVerifier zokratesVerifier;
 
+    struct Solution {
+        uint256 _index;
+        address _verifier;
+    }
 
-// TODO define a solutions struct that can hold an index & an address
+    uint256 private _solutionCount = 1;
 
+    uint256 private _tokenId = 1;
 
-// TODO define an array of the above struct
+    mapping (bytes32 => Solution) private _solutions;
 
+    event SolutionAdded(address verifier);
 
-// TODO define a mapping to store unique solutions submitted
+    constructor(address _verifier)
+                            public ERC721Mintable
+                                            (
+                                                "Udacity Blockchain Capstone Real Estate Property Token",
+                                                "UBCREPT",
+                                                "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/"
+                                            ) {
+        zokratesVerifier = ZokratesVerifier(_verifier);
+    }
 
+    function addSolution(address _verifier, bytes32 _proof) internal returns (bool) {
 
+        Solution memory _solution = Solution(_solutionCount, _verifier);
 
-// TODO Create an event to emit when a solution is added
+        _solutions[_proof] = _solution;
+        emit SolutionAdded(_verifier);
 
+        _solutionCount = _solutionCount.add(1);
 
+        return true;
+    }
 
-// TODO Create a function to add the solutions to the array and emit the event
+    function mint
+                (
+                    uint[2] memory a,
+                    uint[2][2] memory b,
+                    uint[2] memory c,
+                    uint[2] memory inputs
+                )
+                public
+                onlyOwner
+                returns (uint256) {
+        //  - make sure the solution is unique (has not been used before)
+        //  - make sure you handle metadata as well as tokenSupply
 
+        // Create a unique keccak256 hash of the incoming proof
+        bytes32 _proof = keccak256(abi.encodePacked(a, b, c, inputs));
 
+        if (zokratesVerifier.verifyTx(a, b, c, inputs)) {
+            if (_solutions[_proof]._index <= 0) {
+                addSolution(msg.sender, _proof);
+            }
 
-// TODO Create a function to mint new NFT only after the solution has been verified
-//  - make sure the solution is unique (has not been used before)
-//  - make sure you handle metadata as well as tokenSuplly
+            _mint(msg.sender, _tokenId);
+            setTokenURI(_tokenId);
+            _tokenId = _tokenId.add(1);
 
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            return(_tokenId);
+        }
+    }
+}

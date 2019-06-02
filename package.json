@@ -1,5 +1,5 @@
 {
-  "name": "capstone",
+  "name": "blockchain-capstone",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,8 +14,10 @@
     "lite-server": "2.4.0"
   },
   "dependencies": {
-    "openzeppelin-solidity": "^2.2.0",
+    "install": "^0.12.2",
+    "openzeppelin-solidity": "^2.3.0",
     "solc": "^0.5.2",
-    "solc-js": "^0.5.2"
+    "solc-js": "^0.5.2",
+    "truffle-assertions": "^0.9.1"
   }
 }
