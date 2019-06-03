@@ -2,3 +2,4 @@ node_modules
 zokrates/code/square/generated
 build
 .env
+.DS_Store
