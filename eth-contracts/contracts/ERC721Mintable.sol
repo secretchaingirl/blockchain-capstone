@@ -515,7 +515,8 @@ contract ERC721Mintable is ERC721Metadata {
     function mint(address to, uint256 tokenId) public onlyOwner returns (bool) {
         require(to != address(0), "invalid 'to' address.");
 
-        _mint(to, tokenId);
+        super._mint(to, tokenId);
+        setTokenURI(tokenId);
         return true;
     }
 }

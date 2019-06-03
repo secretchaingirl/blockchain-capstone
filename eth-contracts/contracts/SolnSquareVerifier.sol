@@ -63,8 +63,6 @@ contract ERC721MintableComplete is ERC721Mintable {
                 public
                 onlyOwner
                 returns (uint256) {
-        //  - make sure the solution is unique (has not been used before)
-        //  - make sure you handle metadata as well as tokenSupply
 
         // Create a unique keccak256 hash of the incoming proof
         bytes32 _proof = keccak256(abi.encodePacked(a, b, c, inputs));
@@ -74,8 +72,7 @@ contract ERC721MintableComplete is ERC721Mintable {
                 addSolution(msg.sender, _proof);
             }
 
-            _mint(msg.sender, _tokenId);
-            setTokenURI(_tokenId);
+            super.mint(msg.sender, _tokenId);
             _tokenId = _tokenId.add(1);
 
             return(_tokenId);
