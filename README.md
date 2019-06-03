@@ -23,6 +23,10 @@ contract address:
 0x650121f4F10e62dc680DAf7e1ecb4AE256ebE6cC
 ```
 
+View it on [rinkeby.etherscan.io](https://rinkeby.etherscan.io/address/0x650121f4F10e62dc680DAf7e1ecb4AE256ebE6cC#tokentxnsErc721).
+
+![](images/rinkeby-etherscan.png)
+
 ## OpenSea Storefront
 
 The OpenSea items created from the minted ERC721 tokens are viewable at:
