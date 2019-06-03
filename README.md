@@ -8,6 +8,8 @@ This capstone project illustrates:
 The zk-SNARK proof used in this project was created with Zokrates (see below in resources). The Zokrates proof and verification is
 incorporated into the ERC721 contract to allow minting of the tokens.
 
+For detailed information on Zokrates and how to create the proof and verification contract, see the [Official Zokrates documentation](https://zokrates.github.io/gettingstarted.html).
+
 Once the tokens are minted you can use OpenSea to list them for sale. The Udacity capstone API has already been setup by Udacity 
 with the required metadata for each token Id (Name, property image, etc.). After the tokens have been put up for sale on OpenSea,
 you can use another Metamask account (for example) to purchase them.
